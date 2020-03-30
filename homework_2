@@ -1,0 +1,220 @@
+#通过键盘输入3个数a、b、c，按由小到大的顺序输出。
+a = float(input('请输入第一个数：'))
+b = float(input('请输入第二个数：'))
+c = float(input('请输入第三个数：'))
+if a > b:
+    if b > c:
+        z = a
+        y = b
+        x = c
+    else:
+        if a > c:
+            z = a
+            y = c
+            x = b
+        else:
+            z = c
+            y = a
+            x = b
+else:
+    if a > c:
+        z = b
+        y = a
+        x = c
+    else:
+        if b > c:
+            z = b
+            y = c
+            x = a
+        else:
+            z = c
+            y = b
+            x = a
+print('%0.1f > %0.1f > %0.1f' %(z,y,x))
+
+import math
+print('总所周知：ax²+bx+c=0')
+a = float(input("请输入a："))
+b = float(input("请输入b："))
+c = float(input("请输入c："))
+delta = b**2-4*a*c
+
+x1= (-b+root)/(2*a)
+x2= (-b-root)/(2*a)
+if delta < 0:
+     print('无根哦')
+else:
+    root = math.sqrt(b**2-4*a*c)
+    if delta == 0:
+        print('恰有一根: %0.2f'%(x1))
+    else:
+        print('有两根: %0.2f, %0.2f' %(x1,x2))
+       
+x = float(input("请输入x："))
+if x == 0:
+    y = 0
+elif x > 0:
+    y = 1
+else:
+    y = -1
+print(y)
+
+# Assn1_Change_Calculator.py
+#
+# Description: This Assignment 1 Change Calculator Pythom program figures out the
+#              change to be given back to the customer such that it gives the
+#              maximum number of $10 bills, then the maximum number of $5 bills,
+#              then the maximum number of toonies, down to the number of $0.05 (nickel).
+print('Welcome to my Change Calculator!\n')
+# Set up our money variables
+centValueOfTenDollarBill = 1000
+centValueOfFiveDollarBill = 500
+centValueOfToonie = 200
+centValueOfLoonie = 100
+centValueOfQuarter = 25
+centValueOfDime = 10
+centValueOfNickel = 5
+# Set up our variables
+purchaseTotal = 12.50  # Purchase costs $12.50                     
+moneyPaid = 20.00      # Customer gives cashier $20.00
+# Set up the variable purchaseTotal by asking the user for the total of purchase   
+purchaseTotal = float(input('Please, enter the total of the purchase: '))
+# Set up the variable moneyPaid by asking the user for the money the customer has given to pay for the purchase
+moneyPaid = float(input('Please, enter the amount given by the customer: '))
+# Figure out the change
+change = moneyPaid - purchaseTotal
+while change < 0:
+    print('the amont of money paid cannot be smaller than the purchasetotal!')
+    purchaseTotal = float(input('Please, enter the total of the purchase: '))
+    moneyPaid = float(input('Please, enter the amount given by the customer: '))
+    change = moneyPaid - purchaseTotal
+# Echo input data to user
+print("""The total of the purchase is $%0.2f.
+The customer paid $%0.2f. 
+The cashier gives $%0.2f back to the customer in the following fashion: """ %(purchaseTotal, moneyPaid, change))
+#Convert dollars into cents to facilitate the computation
+purchaseTotalInCents = purchaseTotal * 100
+moneyPaidInCents = moneyPaid * 100
+changeInCents = change * 100 
+# Determine # of $10 to be given back as part of the change
+numberOfTenDollarBills = changeInCents // centValueOfTenDollarBill
+changeInCents = changeInCents % centValueOfTenDollarBill
+# Determine # of $5 to be given back as part of the change
+numberOfFiveDollarBills = changeInCents // centValueOfFiveDollarBill
+changeInCents %= centValueOfFiveDollarBill
+# Determine # of $2 (toonies) to be given back as part of the change
+numberOfToonieCoins = changeInCents // centValueOfToonie
+changeInCents %= centValueOfToonie
+# Determine # of $1 (loonies) to be given back as part of the change
+numberOfLoonieCoins = changeInCents // centValueOfLoonie
+changeInCents %= centValueOfLoonie
+# Determine # of $0.25 (quarters) to be given back as part of the change
+numberOfQuarterCoins = changeInCents // centValueOfQuarter
+changeInCents %= centValueOfQuarter
+# Determine # of $0.10 (dimes) to be given back as part of the change
+numberOfDimeCoins = changeInCents // centValueOfDime
+changeInCents %= centValueOfDime 
+# At this point, changeInCents can either be
+# 5 -> 1 x $0.05 (nickels) or
+# 0 -> 0 x $0.05 (nickels)
+numberOfNickelCoins = changeInCents // centValueOfNickel
+# Output the result: change cashier needs to give back to customer
+print("\t%i x $10.00" %numberOfTenDollarBills)
+print("\t%i x $ 5.00" %numberOfFiveDollarBills)
+print("\t%i x $ 2.00" %numberOfToonieCoins)
+print("\t%i x $ 1.00" %numberOfToonieCoins)
+print("\t%i x $ 0.25" %numberOfQuarterCoins)
+print("\t%i x $ 0.10" %numberOfDimeCoins)
+print("\t%i x $ 0.05" %numberOfNickelCoins)
+# Indicates the end of execution
+print("----\n")
+
+
+A = ''
+a = input('请键入一个字符：')
+while a != 'h':
+    A = A + a
+    a = input('请键入一个字符：')
+    if a == 'h':
+        A = A + a
+        break
+print(A)
+
+
+for i in range(1,10):
+    for k in range(1,i):
+        print(end='  ')
+    for j in range(i,10):
+        z = i*j
+        print('%2d' % (z),end='  ')
+    print()
+    
+    
+ a = 1
+while a <= 9:
+    b =0
+    c =1
+    while b <= 9-a:
+        print(' ' ,end=' ')
+        b += 2
+    while c <=a:
+        print('*',end=' ')
+        c += 1
+    print()
+    a += 2
+    
+    
+#编程实现机械式ofo车锁密码测试程序。
+import numpy as np
+import random
+a1 = np.arange(97,123)
+small = [chr(i) for i in a1]
+a2 = np.arange(65,91)
+capital = [chr(i) for i in a2]
+letters = small +capital
+numbers = []
+for i in range(10):
+    numbers.append(i)
+field = letters + numbers
+def exam():
+    a = str(random.choice(field))
+    b = str(random.choice(field))
+    c = str(random.choice(field))
+    d = str(random.choice(field))
+    standard =a+b+c+d
+    print('验证码为:' + standard)
+    im = str(input('请输入验证码:'))
+    while im != standard:
+        print('验证码错误，认证失败，请重新输入！')
+        im = str(input('请输入验证码:'))
+        if im == standard:
+            print('认证成功，自行车已经解锁！')
+ exam()
+ 
+ 
+ #使用枚举的方式求解方程 a + b = 2
+#其中 a的取值范围 [0,1] 
+#b的取值范围[1,2]
+#将可能的结果输出。(精确到小数点后两位)
+a = 0
+b = 0
+while a <= 1.01:
+    b = 2-a
+    print('a=%.2f, b=%.2f' %(a,b))
+    a += 0.01
+    
+I=float(input('请输入本月利润（单位：万）：'))
+Bonus = 0
+if I <= 10:
+    Bonus = 0.1*I
+elif I > 10 and I < 20:
+    Bonus = 0.1*10 + 0.075*(I-10)
+elif I >= 20 and I < 40:
+    Bonus = 0.1*10 + 0.075*10 + 0.005*(I-20)
+elif I >= 40 and I < 60:
+    Bonus = 0.1*10 + 0.075*10 + 0.005*20 + 0.003(I-40)
+elif I >= 60 and I < 100:
+    Bonus = 0.1*10 + 0.075*10 + 0.005*20 + 0.003*20 + 0.0015*(I-60)
+elif I >= 100:
+    Bonus = 0.1*10 + 0.075*10 + 0.005*20 + 0.003*20 + 0.0015*40 + 0.001*(I-100)
+print('本月奖金为：%0.3f万元' %(Bonus))
