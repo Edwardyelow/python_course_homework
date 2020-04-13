@@ -1,0 +1,106 @@
+#猜数程序-GuessingGame
+# Get a number from 1 to 10 for the user to guess
+#Import random
+#number = random.randint(1,10)
+#要求：分析、完善
+#判断输入值范围
+#判断输入值是否为字符
+#循环判定（猜测次数固定/直到猜对即止/直到用户不想猜了为止）
+#isdigit()函数判断是否数字
+#isalpha()函数判断是否字母
+#isalnum()判断是否数字和字母的组合
+
+#without limitation 
+import random
+number = random.randint(1,10)
+x = 0
+y = 0
+while x != 1 and y != 1:
+    guess = input('please guess a number ranging from 1 to 9:')
+    if guess.isdigit() == True:
+        x = 1
+        guess2 = int(guess)
+        if guess2 <= 9 and guess2 >= 1:
+            y = 1
+        else:
+            print('your number does not belong to the range of 1 to 9, plz type in correctly')
+            x = 0
+    else:
+        print('please type in a number!')
+        y = 0
+    if x  == 1 and y == 1:
+        break
+if guess2 == number:
+    print('wow! you can really guess!')
+else:
+    print('sorry you are wrong')
+print('the correct answer is '+ str(number) + ' and your answer is '+ str(guess))
+print('bye!')
+
+#only try 3 times:
+import random
+number = random.randint(1,10)
+x = 0
+y = 0
+i = 0
+while x != 1 and y != 1:
+    guess = input('please guess a number ranging from 1 to 9:')
+    if guess.isdigit() == True:
+        x = 1
+        guess2 = int(guess)
+        if guess2 <= 9 and guess2 >= 1:
+            y = 1
+        else:
+            print('your number does not belong to the range of 1 to 9, plz type in correctly')
+            x = 0
+    else:
+        print('please type in a number!')
+        y = 0
+    if x  == 1 and y == 1:
+        i = i + 1
+        if guess2 != number and i != 3:
+            print('sorry you are wrong')
+            x = 0
+            y = 0
+        elif guess2 != number and i == 3:
+            print('sorry you are wrong')
+            print('you have run out of chance!')
+            print('the correct answer is '+ str(number) + ' and your answer is '+ str(guess))
+            print('bye!')
+        elif guess2 == number:
+            print('wow! you can really guess!')
+            print('the correct answer is '+ str(number) + ' and your answer is '+ str(guess))
+            print('bye!')
+         
+#stop when the player wants to:
+import random
+number = random.randint(1,10)
+x = 0
+y = 0
+stop = '886'
+while x != 1 and y != 1:
+    guess = input('please guess a number ranging from 1 to 9(if you do not want to play any more, enter 886):')
+    if guess == stop:
+        print('the correct answer is '+ str(number))
+        print('bye!')
+        break  
+    elif guess.isdigit() == True:
+        x = 1
+        guess2 = int(guess)
+        if guess2 <= 9 and guess2 >= 1:
+            y = 1
+        else:
+            print('your number does not belong to the range of 1 to 9, plz type in correctly')
+            x = 0
+    elif guess.isdigit() == False:
+        print('please type in a number!')
+        y = 0
+    if x  == 1 and y == 1:
+        if guess2 != number:
+            print('sorry you are wrong')
+            x = 0
+            y = 0
+        else:
+            print('wow! you can really guess!')
+            print('the correct answer is '+ str(number) + ' and your answer is '+ str(guess))
+            print('bye!')
