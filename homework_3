@@ -1,0 +1,166 @@
+#1、编写猜数程序。要求：使用while循环语句，当未猜中时，循环猜数的次数为有限次（例如3次）。且用户可以选择退出。
+import random
+# Get a number from 1 to 10 for the user to guess
+number = random.randint(1,10)
+# Get the user's guess
+userGuess = input("Guess the number (integer between 1 and 10) I have in mind: ")
+# Has the user entered a number?
+if userGuess.isalpha( ) :
+        print("""Your guess should be a number between 1 and 10. You entered letter(s): %s :( ."""
+          %userGuess )
+else :
+    # Convert userGuess from string to integer
+    userGuess = int(userGuess)
+    # Has the user entered a number within the range
+    if userGuess < 1 or userGuess > 10:
+        print("""Your guess should be a number between 1 and 10. You entered: %d :( ."""
+                     %userGuess )
+    else :
+        # Did the user guess correctly? Display appropriate message
+        if number == userGuess :
+            print("Wow! You got it!")
+        else :
+            print("Sorry! You missed! The number was %d." %number)
+
+print("Bye!")
+
+#2、分析一个Python程序，说明该程序的主要功用是什么，并对关键件语句进行注释说明。
+# EquationCalculator.py
+# 程序中涉及字符串数theParts[ ]和list类型数据结构oplist，后面会讲到，这里可以先自己学习一下基本的知识
+opList = ["+", "-", "*", "/"] 
+# Welcome and instruct the user
+print("Welcome to my Equation Calculator!\n")
+print("""My EquationCalculator can 
+    \tadd: +,
+    \tsubtract: -,
+    \tmultiply: *, and 
+    \tdivide: / (result is a float).""")
+print("""\nThe equation you enter must follow this syntax:
+ <operand><space><operator><space><operand>.""")
+print("An <operand> is any float you wish.")
+print("An <operator> is any of the above 4 operators this Calculator can deal with.")
+print("A <space> is an empty space. :)")
+# 上文是对该程序的功能和输入要求的简要介绍。
+equation = input("\nPlease, enter your equation: ")
+# 输入需要计算的等式
+print("The equation you entered is '%s'." %equation)
+# 展示输入的等式
+if equation.isalpha( ) :
+    print("\nYou have entered the sequence of letters '%s' which is not an equation. Please, try again." %equation)
+else :  
+# 判断输入内容是否符合要求，如果不符合，就重新输入 
+    theParts = equation.split() 
+#把输入内容拆成列表形式
+# print("Here is a list containing the operands and operator of the equation: ", theParts) # For debug purposes
+    if len(theParts) == 0 :
+        print("\nHave you simply pressed the Enter key? Please, enter an equation next time! :)")
+    elif len(theParts) == 1 :
+        print("\nYou have entered the equation '%s' which is not a complete equation" %equation )
+        if theParts[0] in opList :
+            print("since it only contains the operator %s . Please, try again." %theParts[0])
+        else :
+            print("since it only contains the operand %s . Please, try again." %theParts[0])    
+    elif len(theParts) == 2 :
+        print("\nYou have entered the equation '%s' which is not a complete equation" %equation )
+        if theParts[1] in "+-*/" :
+            print("since it only contains the operand %s and the operator %s. Please, try again."
+                  %(theParts[0],theParts[1]))
+        else :
+            print("since it only contains the operand %s and the operand %s. Please, try again."
+                  %(theParts[0],theParts[1])) 
+#截止是检验输入内容的长度是否符合要求，长度不够则重新输入
+    elif len(theParts) == 3 :  
+#如果输入内容的长度符合要求，则执行以下命令 
+# For debug purposes - We can index a list just like a string using [index] 
+# print("\nThe equation entered by the user is %s %s %s." %(theParts[0], theParts[1], theParts[2])) 
+        if theParts[1] == '/' and float(theParts[2]) == 0.0 :
+                print("The equation has %s as denominator. The equation cannot be evaluated. Please, try again." %theParts[2])
+#进一步判断输入内容是否符合数学规则，既除数不能为0
+        else :
+            if theParts[1] == '+' :
+                result = float(theParts[0]) + float(theParts[2])
+            elif theParts[1] == '-' :
+                result = float(theParts[0]) - float(theParts[2])
+            elif theParts[1] == '*' :
+                result = float(theParts[0]) * float(theParts[2])
+            else : 
+                result = float(theParts[0]) / float(theParts[2])             
+#以上要求全部符合，对输入内容进行计算
+            print("The equation is %g %s %g = %g" %(float(theParts[0]), theParts[1], float(theParts[2]), result))
+#输出结果     
+print("\n----!")
+
+
+#3、编写四种类型的函数。
+#有参数有返回值
+def add(a,b):
+    x = a + b
+    return x
+#有参数无返回值
+def add2(a,b):
+    x = a + b
+#无参数无返回值
+def happy():
+    print('I am so happy!')
+#无参数有返回值
+def isx():
+    x = 5
+    return x
+    
+    
+#4、递归的方式编程实现n的阶乘（尝试用多种方式）
+def factorial(x):
+    a = 1
+    for i in range(1,x+1):
+        a= a * i 
+    return a
+factorial(5)
+
+
+#5、编程计算  sum = 1！＋ 2！＋ … ＋ n！
+def result(z):
+    re = sum_fact(z)
+    print('The factorial Sum of the number you typed in is: %d' %re)
+def factorial(x):
+    a = 1
+    for i in range(1,x+1):
+        a= a * i 
+    return a
+def sum_fact(y):
+    b = 0
+    for i in range(1,y+1):
+        b = b + factorial(i)
+    return b    
+print("Welcome to my Factorial Sum Calculator!\n")
+number = input("\nPlease, enter your number: ")
+if number.isalpha():
+    print("\n Please enter a number.")
+else : 
+    number = int(number)
+    result(number)
+    
+    
+#module hw_3_supprot
+#def result(z):
+#   re = sum_fact(z)
+#   print('The factorial Sum of the number you typed in is: %d' %re)
+#def factorial(x):
+#    a = 1
+#    for i in range(1,x+1):
+#        a= a * i 
+#    return a
+#def sum_fact(y):
+#    b = 0
+#    for i in range(1,y+1):
+#        b = b + factorial(i)
+#    return b 
+
+
+import hw_3_support as hw
+print("Welcome to my Factorial Sum Calculator!\n")
+number = input("\nPlease, enter your number: ")
+if number.isalpha():
+    print("\n Please enter a number.")
+else : 
+    number = int(number)
+    hw.result(number)
