@@ -1,0 +1,89 @@
+def any_lowercase1(s):
+    for c in s:
+        if c.islower():
+            return True
+        else:
+            return False
+# To test whether s contains only lowercase letters
+
+def any_lowercase2(s):
+    for c in s:
+        if 'C'.islower():
+            return 'True'
+        else:
+            return 'False'
+#did not see the relation between this function and 's'
+
+def any_lowercase3(s):
+    for c in s:
+        flag = c.islower()
+    return flag
+# To test whether s contains only lowercase letters
+
+def any_lowercase4(s):
+    flag = False
+    for c in s:
+        flag = flag or c.islower()
+    return flag
+# To test the last letter in s, whether it is lowercase
+
+def any_lowercase5(s):
+    for c in s:
+        if not c.islower():
+            return False
+    return True
+# To test whether s contains only lowercase letters
+
+#编写find（word，letter）函数，返回字符所在位置index或-1（或者编写replace（word，old，new）函数）
+def find(word,letter):
+    if letter in word:
+        return word.find(letter)
+    else:
+        return -1
+        
+find('I love you babe','m')
+
+def replace(word,old,new):
+    result = word.replace(old,new)
+    return result
+    
+word = 'I love you babe'
+replace(word,'babe','bitch')
+
+#3、编写与 in 关键字作用相类似的函数in_both(word1,word2),将word1中存在于word2中的字符打印输出，如果不存在相同字符给予提示。
+
+def in_both(word1,word2):
+    common = ''
+    nope = 0
+    for c in word1:
+        if c in word2:
+            common += c
+        else:
+            nope += 1
+        if nope == len(word1):
+            print('Sorry, there is no common element in word1 & word2!')
+        else:
+            print(common)
+word1= 'm'
+word2= 'I love you bitch'
+in_both(word1, word2)
+
+#4、通过键盘循环输入多个字符串，直到输入给定停止字符为止。统计并打印输出输入字符串的个数，并将每个字符串分别打印输出。（可以使用list数据结构完成本题）
+goal = 'a'
+def find_a():
+    allover=[]
+    typein =''
+    while typein != goal:
+        typein = input('please type in a letter:')
+        allover.append(typein)
+        if typein == goal:
+            print('The amount of times you have guessed is:',len(allover))
+            print('The letters you have guessed are:',allover)
+            
+#5、利用list结构，循序存储10个数，将数值排序后输出。
+import random
+list=[]
+for i in range(0,10):
+    list.append(random.randint(1,100))
+list.sort()
+print(list)
