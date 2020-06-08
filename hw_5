@@ -1,0 +1,212 @@
+def print_file(fname):
+    f = open(fname,'r')
+    for line in f:
+        print(line, end='')
+print_file('作业4.txt')
+
+
+1、编写程序
+要求：
+建立一个list类型的数据变量，将下列字符依次添加到该变量中：
+
+ren sheng ku duan，
+wo yong python！
+
+建立一个新文本文件，将上述list变量中的元素添加到文件当中，并将文本文件中的内容打印输出。
+
+2、文本统计应用。
+要求：
+读懂文本统计的程序，利用程序实现对一篇英文文章（.txt）的统计分析。将编写的程序，用于分析的英文文献和分析结果一起提交。
+
+a = list()
+a.append('ren')
+a.append('sheng')
+a.append('ku')
+a.append('duan,')
+a.append('wo')
+a.append('yong')
+a.append('python!')
+def make_sth():
+    f = open('story.txt','w')
+    f.write(str(a))
+    
+make_sth()
+print_file('story.txt')
+
+import pandas as pd
+import numpy as np
+#convert s to a normalized string.
+keep = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ','-',"''"}
+def normalize(s):
+    result = ''
+    for c in s.lower():
+        if c in keep:
+            result +=c
+    return result
+#returns a dictionary whose keys are the words of s
+#and whose values are the counts of those words
+def make_freq_dict(s):
+    s = normalize(s)
+    words = s.split()
+    d = {}
+    for w in words:
+        if w in d:
+            d[w] += 1
+        else:
+            d[w] = 1
+    return d
+def print_file_stats(fname):
+    'Print statistics for the given file.'
+    s = open(fname, 'r',encoding='UTF-8').read() #open the document
+    num_chars = len(s) #count characters befor normalizing s
+    num_lines = s.count('\n') #count lines before normalizing s
+    d = make_freq_dict(s)#normalize s and get the frequency of words
+    num_words = sum(d[w] for w in d) #count number of words in s
+    # create list of (count, pair) words ordered from
+    # most frequent to least frequent
+    lst = [(d[w], w) for w in d]
+    lst.sort()
+    lst.reverse()
+    # print the results
+    print("the file '%s' has: " % fname)
+    print(" %s characters" % num_chars)
+    print(" %s lines" % num_lines)
+    print(" %s words" % num_words)
+    print(" \n the top 10 most frequent words are:")
+    i = 1
+    for count, word in lst[:10]:
+        print('%2s. %4s %s' % (i, count, word))
+        i += 1
+    
+    
+ print_file_stats('Gender.txt')
+ 
+
+the file 'Gender.txt' has: 
+ 39098 characters
+ 210 lines
+ 5380 words
+ 
+ the top 10 most frequent words are:
+ 1.  285 the
+ 2.  201 and
+ 3.  189 of
+ 4.  143 in
+ 5.  124 to
+ 6.   80 space
+ 7.   69 gender
+ 8.   55 that
+ 9.   52 for
+10.   47 right
+
+#sum of different words 
+def make_sum_dict(s):
+    s = normalize(s)
+    words = s.split()
+    b = {}
+    for w in words:
+        d[w] = 1
+    return b
+    
+
+
+ #average length of words:
+def make_ave_dict(s):
+    s = normalize(s)
+    words = s.split()
+    m = []
+    for w in words:
+        lenth = len(w)
+        m.append(lenth)
+    return m
+m = make_ave_dict(s)
+ave_num = np.mean(m)
+ave_num = round(ave_num)
+
+#print words that only appear once
+def make_one_dict(s):
+    s = normalize(s)
+    words = s.split()
+    c = {}
+    for w in words:
+        if w in c:
+            c[w] += 1
+        else:
+            c[w] = 1
+    return c
+c = make_one_dict(s)
+dataframe3 = pd.DataFrame.from_dict(c, orient='index', columns=['fre'])
+dataframe3 = dataframe3.reset_index(drop = False)
+word_only_one = dataframe3[dataframe3.fre == 1]
+one_lst = []
+for i in word_only_one['index']:
+    one_lst.append(i)
+    
+def print_file_stats_updated(fname):
+    'Print statistics for the given file.'
+    s = open(fname, 'r',encoding='UTF-8').read()
+    d = make_freq_dict(s)
+    b = make_sum_dict(s)
+    dataframe1 = pd.DataFrame.from_dict(d, orient='index',columns = ['number'])
+    sum_num = dataframe1['number'].sum()
+    m = make_ave_dict(s)
+    ave_num = np.mean(m)
+    ave_num = round(ave_num)
+    dataframe3 = pd.DataFrame.from_dict(d, orient='index', columns=['fre'])
+    dataframe3 = dataframe3.reset_index(drop = False)
+    word_only_one = dataframe3[dataframe3.fre == 1]
+    one_lst = []
+    for i in word_only_one['index']:
+        one_lst.append(i)
+    del d['the']
+    del d['and']
+    del d['of']
+    del d['in']
+    del d['to']
+    del d['that']
+    del d['for']
+    del d['on']
+    del d['is']
+    del d['by']
+    del d['as']
+    del d['a']
+    del d['was']
+    del d['from']
+    del d['were']
+    del d['more']
+    del d['which']
+    lst = [(d[w], w) for w in d]
+    lst.sort()
+    lst.reverse()
+    # print the results
+    print("the file '%s' has: " % fname)
+    print("%s different words" % sum_num)
+    print("the average lenth of wrods in this paper is %s" % ave_num)
+    print("words that only appear once are:")
+    print(one_lst)
+    print(" \n the top 10 most frequent words(without function words) are:")
+    i = 1
+    for count, word in lst[:10]:
+        print('%2s. %4s %s' % (i, count, word))
+        i += 1
+
+
+print_file_stats_updated('Gender.txt')
+
+the file 'Gender.txt' has: 
+5380 different words
+the average lenth of wrods in this paper is 6.0
+words that only appear once are:
+['--gender-equality', 'crisishongyang', 'ye', 'jiahui', 'demin', 'li', 'wanying', 'zhouschool', 'english', 'international', 'beijing', 'universityabstract', 'latest', 'reopened', 'prohibited', 'progressive', 'protective', 'therein', 'lays', 'believe', 'unbalanced', 'how', 'divided', 'constructing', 'linekey', 'introductionin', 'august', 'leqing', 'robbed', 'she', 'contacted', 'reacted', 'closing', 'sector', 'finally', 're-opened', 'november', 'prohibiting', 'during', 'nightthe', 'single', 'certainly', 'convincing', 'judging', 'great', 'disturbance', 'internet', 'discrepancies', 'later', 'referred', 'voices', 'opponents', 'particularly', 'arguing', 'restriction', 'wrongly', 'exercised', 'victimsthe', 'conflicting', 'struggle', 'area', 'possession', 'voice', 'victimized', 'xinli', 'emergence', 'resistance', 'preserving', 'review', 'situationfemale', 'publicly', 'debated', 'period', 'despite', 'struggles', 'governments', 'businesses', 'operation', 'rides', 'assault', 'rampant', 'young', 'ride', 'alonein', 'broke', 'paid', 'hunan', 'event', 'est', 'three-stage', 'help', 'regain', 'credibility', 'firm', 'doom', 'dhchowever', 'demanded', 'responded', 'inflicting', 'usage', 'servicesthe', 'kept', 'simmering', 'multiple', 'platforms', 'tieba', 'where', 'fell', 'incompatible', 'sides', 'name', 'marking', 'discriminated', 'rightswhile', 'literally', 'responses', 'reputation', 'notice', 'quiet', 'nation-wide', 'online', 'intensely', 'mindsets', 'support', 'confinement', 'reality', 'effect', 'creating', 'perpetuating', 'road', 'general', 'outside', 'rightmarx', 'believed', 'trying', 'create', 'advancement', 'facilitated', 'shift', 'countryside', 'organized', 'product', 'mode', 'rule', 'relied', 'political', 'economic', 'development', 'accelerated', 'move', 'along', 'types', 'emerged', 'success', 'acquired', 'variety', 'fields', 'recent', 'witnessed', 'increasing', 'increased', 'primary', 'enter', 'live', 'yao', 'socially', 'spiritual', 'covering', 'wide', 'range', 'disciplines', 'philosophy', 'political-economy', 'essential', 'criticizing', 'class', 'geographically', 'speaking', 'producing', 'central', 'possessed', 'abundant', 'lived', 'groups', 'ethnic', 'racial', 'minorities', 'old', 'onwards', 'building', 'legacy', 'second-wave', 'post-constructionist', 'methods', 'critiques', 'geographical', 'cast', 'doubt', 'arrangements', 'challenged', 'naturalness', 'legitimacy', 'folded', 'beauvoir', 'deeply', 'ingrained', 'existed', 'begin', 'emergetraditionally', 'strictly', 'segregated', 'western', 'east', 'ancient', 'greece', 'respectable', 'frivolous', 'ones', 'walked', 'streets', 'purdah', 'prevalent', 'indian', 'morally', 'restricting', 'geographers', 'reciprocal', 'deeming', 'waitt', 'famous', 'geographer', 'perception', 'dichotomized', 'shaped', 'places', 'relevantly', 'nurturing', 'cooperation', 'obedience', 'contrary', 'competition', 'sought', 'called', 'devils', 'deviating', 'matter', 'households', 'occupied', 'managed', 'depicted', 'warm', 'glamorous', 'depiction', 'dichotomization', 'his', 'neglect', 'mechanism', 'sun', 'dominanceat', 'end', 'century', 'awakening', 'encouraged', 'longer', 'conformed', 'expectation', 'angels', 'eager', 'break', 'enduring', 'constraint', '--home', 'consumerist', 'providing', 'ground', 'strict', 'boundaries', 'broken', 'buses', 'restaurants', 'progress', 'occupation', 'confined', 'thing', 'seldom', 'typical', 'examples', 'height', 'chars', 'bars', 'caf', 'designed', 'standard', 'sidewalks', 'parks', 'paved', 'cobblestones', 'extremely', 'unfriendly', 'wearing', 'high', 'heels', 'neglected', 'diffusing', 'embedded', 'limit', 'companion', 'behavior', 'wear', 'revealing', 'subway', 'confront', 'result', 'instead', 'justified', 'inherent', 'masculinity', 'wei', 'summarize', 'previous', 'seemingly', 'few', 'let', 'alone', 'investigate', 'samplingafter', 'searching', 'chose', 'collected', 'saved', 'databaseofficial-media', 'accountnumber', 'datasina', 'clientpeoples', 'dailysinasina', 'fiancechina', 'newstotaltable', 'sources', 'capturethis', 'capture', 'program', 'written', 'researcher', 'jupyter', 'web-based', 'interactive', 'computing', 'uses', 'modules', 'python', 'requests', 'beautifulsoup', 'josn', 'xlwt', 're', 'functions', 'mock', 'registration', 'located', 'regular', 'textual', 'message', 'username', 'sex', 'next', 'workbook', 'exported', 'form', 'excel', 'circulate', 'procedure', 'build', 'database', 'labeled', 'coding', 'appendix', 'rational', 'webcrawlerwe', 'removed', 'duplicated', 'couldnt', 'make', 'total', 'left', 'valid', 'conformity', 'registered', 'checked', 'shew', 'obviously', 'mismatches', 'therefore', 'concluded', 'analysisadopting', 'widely', 'field', 'computational', 'linguistics', 'emotions', 'looking', 'phrases', 'sentences', 'discourses', 'merely', 'focus', 'decontextualized', 'sometimes', 'may', 'avoid', 'selected', 'passengersfemale', 'safetymale', 'passengersmale', 'safetydriversfemale', 'extensiontable', 'levelfrom', 'pilot', 'concentrated', 'extension', 'unconcerned', 'stands', 'allowance', 'assign', 'numerical', 'scores', 'criteria', 'assessing', 'programs', 'policies', 'reference', 'gender-transformative', 'simplified', 'score', 'levelscorestandardgender-unequal-privileges', 'vice', 'versa', 'reinforces', 'discriminationgender-blindignores', 'treating', 'everyone', 'principle', 'fairgender-sensitiveconsciously', 'takes', 'norms', 'accounttable', 'evaluationthe', 'following', 'concerned', 'concern', 'considering', 'respectively', 'safetymp', 'safetyfd', 'rightmd', 'passengersmp', 'passengersfd', 'driversmd', 'driverstable', 'g-a', 'analysisto', 'reliability', 'independently', 'questionable', 'together', 'worked', 'final', 'decision', 'analysisthis', 'conducted', 'dependent', 'variables', 'null', 'impacts', 'resultsthis', 'section', 'perspectives', 'testingtable', 'except', 'rejected', 'confidence', 'levelsexgender', 'correlationsig-tailedfp', 'corsig-tailedmp', 'corsig-tailed-fd', 'corsig-tailedmd', 'corsig-tailed-topic', 'corsig-tailed-table', 'analysisspecifically', 'rightpcorstrength', 'correlationmd', 'maletopic-', 'safety-', 'malemp', 'male--', 'femalefd', 'male-', 'femaledomain', 'pearson', 'coefficient-', 'medium', 'relevanttable', 'strength', 'analysisresearchers', 'focuses', 'party', 'did', 'relevance', 'concentrate', 'safetyfigure', 'focusin', 'focusing', 'rightfigure', 'dimensionswhile', 'discovered', 'got', 'moreover', 'tend', 'exceeded', 'dimensionsas', 'positive', 'presented', 'respectivelyfigure', 'frequencylastly', 'ranked', 'keywordfemalemaletotallimitschoicerightrapeaccidenttaxiexpress', 'cartable', 'keyword', 'frequencykeywords', 'limits', 'choice', 'mentioning', 'se', 'cultureresults', 'attitudes', 'viewing', 'reveals', 'degrees', 'account', 'societal', 'factors', 'exclusion', 'spheres', 'bearing', 'mind', 'rely', 'assumptions', 'outdated', 'views', 'gender-sensitive', 'indicator', 'gaps', 'inequalities', 'redress', 'consideration', 'manifests', 'clearer', 'wallace', 'dhcs', 'clash', 'appears', 'transformed', 'argument', 'protects', 'claim', 'traveling', 'objection', 'really', 'self-evident', 'happened', 'before', 'vulnerable', 'latent', 'influential', 'factor', 'lies', 'provides', 'convenience', 'deep-rooted', 'pervasive', 'loss', 'seen', 'endeavor', 'extent', 'imbalanced', 'latecomertraditionally', 'separated', 'occupy', 'undertook', 'breadwinners', 'associated', 'domestic', 'staying', 'moved', 'provided', 'explore', 'adventure', 'speeding-up', 'millennia', 'compressed', 'polarizing', 'actually', 'reflect', 'contemporary', 'posed', 'male-hegemony', 'based', 'us', 'reveal', 'distinctive', 'characteristics', 'outcry', 'mobilityaccording', 'word', 'add-up', 'core', 'entire', 'dispute', 'observe', 'exceptionally', 'ban', 'menthis', 'concept', 'metaphor', 'history', 'endowed', 'contrast', 'pictured', 'motionless', 'beings', 'settled', 'stagnant', 'harbors', 'parking', 'lots', 'waiting', 'return', 'ying', 'ever', 'triggered', 'revolution', 'reach', 'improved', 'efficiency', 'naturally', 'legitimate', 'commuting', 'office', 'buildings', 'availability', 'placed', 'movements', 'became', 'orders', 'securitythe', 'immobility', 'issue', 'dread', 'likely', 'violence-related', 'expressions', 'addition', 'commented', 'indifferently', 'malemales', 'castle', 'rules-', 'phenomenon', 'secondary', 'situation', 'belongs', 'inherently', 'traditionally', 'insecurity', 'discomfort', 'visiting', 'guests', 'landlords', 'theirs', 'survive', 'anyway', 'tension', 'sensitiveness', 'womenmales', 'problems-', 'surely', 'problems', 'crimes', 'harmful', 'happening', 'absolute', 'restrained', 'necessary', 'crime', 'committed', 'malecombined', 'find', 'fundamental', 'dilemma', 'striving', 'male-dominated', 'keep', 'inside', 'zone', 'suppression', 'penetrate', 'dominative', 'violatedeven', 'gradually', 'allowed', 'developed', 'several', 'arouse', 'enough', 'continuously', 'nowadays', 'late', 'given', 'outnumber', 'taxies', 'transport', 'apparently', 'cheap', 'advantageous', 'price', 'facts', 'prove', 'degree', 'meets', 'preferably', 'secondly', 'feel', 'above', 'violated', 'fails', 'provide', 'measures', 'ignores', 'four', 'had', 'ideas', 'correspondingly', 'strikingly', 'convey', 'pay', 'demonstrating', 'explains', 'order', 'care', 'pretended', 'up', 'alternatives', 'intentionally', 'unintentionally', 'tried', 'justify', 'defines', 'citizens', 'rules', 'linenumerous', 'reports', 'emphasized', 'stepping', 'blaming', 'strategy', 'depict', 'punishment', 'crossing', 'mean', 'limiting', 'insist', 'dangerous', 'changes', 'questioned', 'hire', 'guard', 'emphasize', 'individual', 'connotation', 'any', 'carelessness', 'statement', 'unconsciously', 'encourage', 'reinforcement', 'submission', 'put', 'forward', 'faade', 'arguments', 'think', 'whats', 'purpose', 'bad', 'intention', 'consider', 'cater', 'protect', 'theres', 'discriminating', 'inconvenient', 'option', 'etc', 'cannot', 'injury', 'restraining', 'again', 'reinforced', 'conclusioncurrent', 'female-targeted', 'exploring', 'cyber', 'conductive', 'circles', 'academiathis', 'pieces', 'wevcrawler', 'examined', 'conducting', 'safely', 'played', 'indicates', 'understood', 'assume', 'latecomer', 'crying', 'ignoring', 'violating', 'malereferencescheng', 'jiangxi', 'sciences', 'spacesm', 'chapel', 'hill', 'north', 'carolina', 'minnesota', 'elden', 'stuart', 'lefebrve', 'london', 'gordon', 'killing', 'waves', 'surfing', 'httpsdoiorg', 'huan', 'deconstruction', 'huawei', 're-construction', 'community', 'imagination', 'yanan', 'studying', 'economya', 'west', 'leather', 'httpsknscnkinetkcmsdetaildetailaspxkoskela', 'h', 'exclusions', 'changing', 'httpsdoiorgj-x', 'henrithe', 'o', 'f', 'marx', 'ning', 'sociological', 'significance', 'owallace', 'wisegeek', 'httpswwwwisegeekcomwhat-is-gender-sensitivityhtmr', 'glossary', 'ule', 'r', 'u', 'venturini', 'eds', 'gendering', 'slovenian', 'surveys', 'eu', 'paradigms', 'vienna', 'echoraumwei', 'debates', 'provocative', 'clothing', 'consequences', 'httpsknscnkinetkcmsdetaildetailaspxwenyuan', 'alienation', 'discursive', 'context', 'journalism', 'mass', 'communication', 'monthly', 'httpsknscnkinetkcmsdetaildetailaspxxi', 'hitchhikinga', 'low', 'carbon', 'httpsknscnkinetkcmsdetaildetailaspxxinli', 'david', 'harvey', 'chinas', 'value', 'engineering', 'retrieve', 'bin', 'co-operative', 'httpsknscnkinetkcmsdetaildetailaspxying', 'luyao', 'spatiality', 'travel', 'narratives']
+ 
+ the top 10 most frequent words(without function words) are:
+ 1.   80 space
+ 2.   69 gender
+ 3.   47 right
+ 4.   45 women
+ 5.   38 females
+ 6.   35 their
+ 7.   33 female
+ 8.   30 it
+ 9.   28 male
+10.   27 hitch
